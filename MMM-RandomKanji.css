@@ -28,5 +28,33 @@
     font-weight: light;
   }
   
-  .MMM-Random
+  .MMM-RandomKanji .readings .kun {
+    color: cyan;
+  }
   
+  .MMM-RandomKanji .readings .on {
+    color: green;
+  }
+  
+  .MMM-RandomKanji .definition {
+    font-size: 12pt;
+    font-weight: light;
+  }
+  
+  /* JLPT level styles */
+  .MMM-RandomKanji .kanji.jlpt-n1 {
+    color: red; /* Example color for JLPT N1 */
+  }
+  
+  .MMM-RandomKanji .kanji.jlpt-n2 {
+    color: blue; /* Example color for JLPT N2 */
+  }
+  
+  .MMM-RandomKanji .kanji.jlpt-n3 {
+    color: green; /* Example color for JLPT N3 */
+  }
+  
+  /* Add styles for other JLPT levels as needed */
+    .MMM-RandomKanji.kanji.jlpt-n4 {
+        color:purple
+    }  
