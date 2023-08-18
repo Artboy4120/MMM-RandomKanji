@@ -1,0 +1,32 @@
+.MMM-RandomKanji {
+    width: 50%;
+    margin: auto;
+  }
+  
+  .MMM-RandomKanji .kanji {
+    font-size: 200%;
+    line-height: 1.4;
+  }
+  
+  .MMM-RandomKanji .uncommon.kanji {
+    color: orange;
+  }
+  
+  .MMM-RandomKanji ul {
+    list-style-type: none;
+    padding-left: 0px;
+    margin-left: 0px;
+  }
+  
+  .MMM-RandomKanji li {
+    margin-top: 5px;
+    line-height: normal;
+  }
+  
+  .MMM-RandomKanji .readings {
+    font-size: 12pt;
+    font-weight: light;
+  }
+  
+  .MMM-Random
+  
