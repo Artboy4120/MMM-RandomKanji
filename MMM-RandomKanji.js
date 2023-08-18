@@ -14,15 +14,18 @@ Module.register("MMM-RandomKanji", {
     },
   
     loadKanjiData: function () {
-      const kanjiLevel = this.config.kanjiLevel;
-  
-      fetch(`https://kanjiapi.dev/v1/kanji/${kanjiLevel}`)
-        .then((response) => response.json())
-        .then((data) => {
-          this.kanjiData = data;
-          this.updateKanji();
-        });
-    },
+      
+        fetch(`https://kanjiapi.dev/v1/all`)
+          .then((response) => response.json())
+          .then((data) => {
+            this.kanjiData = data;
+            this.updateKanji();
+          })
+          .catch((error) => {
+            console.error("Error fetching kanji data:", error);
+          });
+      },
+      
   
     scheduleUpdate: function () {
       setInterval(() => {
@@ -31,32 +34,41 @@ Module.register("MMM-RandomKanji", {
     },
   
     updateKanji: function () {
-      if (this.kanjiData.length === 0) {
-        return;
-      }
+        if (this.kanjiData.length === 0) {
+          return;
+        }
+      
+        const randomIndex = Math.floor(Math.random() * this.kanjiData.length);
+        const randomKanji = this.kanjiData[randomIndex];
+        this.currentKanji = randomKanji.kanji;
+        this.currentTranslation = randomKanji.meanings.join(", ");
+        this.currentJLPT = randomKanji.jlpt || "N/A"; // Set JLPT level or "N/A" if not available
+        this.updateDom();
+      },
+      
   
-      const randomIndex = Math.floor(Math.random() * this.kanjiData.length);
-      const randomKanji = this.kanjiData[randomIndex];
-      this.currentKanji = randomKanji.kanji;
-      this.currentTranslation = randomKanji.meanings.join(", ");
-      this.updateDom();
-    },
-  
-    getDom: function () {
-      const wrapper = document.createElement("div");
-      wrapper.className = "MMM-RandomKanji"; // Use the correct class name
-  
-      const kanjiElement = document.createElement("div");
-      kanjiElement.className = "kanji"; // Use the correct class name
-      kanjiElement.innerHTML = this.currentKanji;
-      wrapper.appendChild(kanjiElement);
-  
-      const translationElement = document.createElement("div");
-      translationElement.className = "definition"; // Use the correct class name
-      translationElement.innerHTML = this.currentTranslation;
-      wrapper.appendChild(translationElement);
-  
-      return wrapper;
-    },
+      getDom: function () {
+        const wrapper = document.createElement("div");
+        wrapper.className = "MMM-RandomKanji"; // Use the correct class name
+      
+        const kanjiElement = document.createElement("div");
+        kanjiElement.className = `kanji jlpt-${this.currentJLPT.toLowerCase()}`; // Apply JLPT level class
+        kanjiElement.innerHTML = this.currentKanji;
+        wrapper.appendChild(kanjiElement);
+      
+        const translationElement = document.createElement("div");
+        translationElement.className = "definition"; // Use the correct class name
+        translationElement.innerHTML = this.currentTranslation;
+        wrapper.appendChild(translationElement);
+      
+        // Add JLPT level element
+        const jlptElement = document.createElement("div");
+        jlptElement.className = "jlpt"; // Use the correct class name
+        jlptElement.innerHTML = "JLPT Level: " + this.currentJLPT;
+        wrapper.appendChild(jlptElement);
+      
+        return wrapper;
+      },
+      
   });
   
